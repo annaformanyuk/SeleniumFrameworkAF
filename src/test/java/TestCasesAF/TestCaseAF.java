@@ -15,5 +15,6 @@ public class TestCaseAF {
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://www.nytimes.com/");
+
     }
 }
