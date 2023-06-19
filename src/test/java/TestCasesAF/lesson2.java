@@ -26,7 +26,7 @@ public class lesson2 {
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//div[@id='log-in-button']")).click();
+        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
     }
 
 
@@ -38,11 +38,10 @@ public class lesson2 {
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//div[@id='log-in-button']")).click();
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email");
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
-        driver.findElement(By.xpath("//button[@type='submit']")).submit();
-
+        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
+        System.out.println(driver.findElement(By.xpath("//input[@id='email']")).isDisplayed());
+        System.out.println(driver.findElement(By.xpath("//input[@id='password']")).isDisplayed());
+        System.out.println(driver.findElement(By.xpath("//button[@type='submit']")).isDisplayed());
 
     }
 
@@ -54,7 +53,7 @@ public class lesson2 {
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//div[@id='log-in-button']")).click();
+        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
         driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email@gmail.om");
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
         driver.findElement(By.xpath("//button[@type='submit']")).submit();
@@ -69,12 +68,29 @@ public class lesson2 {
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//div[@id='log-in-button']")).click();
+        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
         driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email@gmail.om");
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
         driver.findElement(By.xpath("//input[@id='password']")).sendKeys(Keys.ENTER);
         Thread.sleep(5000);
         System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).isDisplayed());
+
+    }
+
+    @Test
+    public void ValidateErrorMessageTextOnSignInPage() throws InterruptedException {
+        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        ChromeDriver driver = new ChromeDriver(options);
+
+        driver.get("https://test.my-fork.com/");
+        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email@gmail.om");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(Keys.ENTER);
+        Thread.sleep(5000);
+        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).getText());
 
     }
 
@@ -87,7 +103,7 @@ public class lesson2 {
         ChromeDriver driver = new ChromeDriver(options);
 
         driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//div[@id='log-in-button']")).click();
+        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
         Thread.sleep(2000);
         System.out.println(driver.findElement(By.xpath("//input[@id='auth-page-remember-me']")).isSelected());
     }}
