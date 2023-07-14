@@ -11,8 +11,12 @@ import org.testng.annotations.Test;
 public class lesson2 {
 
     public ChromeDriver driver;
-    public Locators locators = new Locators();
+    String logIn_Btn = "//a[@data='record-data' and @class='menu-item log-in-button']";
+    String email_Btn = "//input[@id='email']";
+    String password_Btn = "//input[@id='password']";
+    String submit_Btn = "//button[@type='submit']";
     String websiteURL = "https://test.my-fork.com/";
+    String error_txt = "//p[text()='Error: email is incorrect']";
 
     @BeforeMethod
     public void setUp(){
@@ -23,18 +27,18 @@ public class lesson2 {
     }
     public void websiteLogIn(){
         driver.get(websiteURL);
-        driver.findElement(locators.logIn_Btn).click();
+        driver.findElement(By.xpath(logIn_Btn)).click();
     }
 
     public void emailPasswordSendKeys(){
-        driver.findElement(locators.email_Btn).sendKeys("email@gmail.om");
-        driver.findElement(locators.password_Btn).sendKeys("password");
+        driver.findElement(By.xpath(email_Btn)).sendKeys("email@gmail.om");
+        driver.findElement(By.xpath(password_Btn)).sendKeys("password");
     }
 
     public void emailPasswordSendKeysEnter(){
-        driver.findElement(locators.email_Btn).sendKeys("email@gmail.om");
-        driver.findElement(locators.password_Btn).sendKeys("password");
-        driver.findElement(locators.password_Btn).sendKeys(Keys.ENTER);
+        driver.findElement(By.xpath(email_Btn)).sendKeys("email@gmail.om");
+        driver.findElement(By.xpath(password_Btn)).sendKeys("password");
+        driver.findElement(By.xpath(password_Btn)).sendKeys(Keys.ENTER);
     }
 
     @Test
@@ -53,9 +57,9 @@ public class lesson2 {
     public void ValidateEmailPasswordAndLoginOnSignInPage(){
 
         websiteLogIn();
-        System.out.println(driver.findElement(locators.email_Btn).isDisplayed());
-        System.out.println(driver.findElement(locators.password_Btn).isDisplayed());
-        System.out.println(driver.findElement(locators.submit_Btn).isDisplayed());
+        System.out.println(driver.findElement(By.xpath(email_Btn)).isDisplayed());
+        System.out.println(driver.findElement(By.xpath(password_Btn)).isDisplayed());
+        System.out.println(driver.findElement(By.xpath(submit_Btn)).isDisplayed());
     }
 
 @Test
@@ -63,7 +67,7 @@ public class lesson2 {
 
         websiteLogIn();
         emailPasswordSendKeys();
-        driver.findElement(locators.submit_Btn).submit();
+        driver.findElement(By.xpath(submit_Btn)).submit();
     }
 
     @Test
@@ -72,7 +76,7 @@ public class lesson2 {
         websiteLogIn();
         emailPasswordSendKeysEnter();
         Thread.sleep(5000);
-        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).isDisplayed());
+        System.out.println(driver.findElement(By.xpath(error_txt)).isDisplayed());
     }
 
     @Test
@@ -81,7 +85,7 @@ public class lesson2 {
         websiteLogIn();
         emailPasswordSendKeysEnter();
         Thread.sleep(5000);
-        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).getText());
+        System.out.println(driver.findElement(By.xpath(error_txt)).getText());
     }
 
     @Test
