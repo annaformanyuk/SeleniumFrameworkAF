@@ -4,109 +4,96 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class lesson2 {
-    @Test
-    public void OpenWebsite(){
+
+    public ChromeDriver driver;
+    public Locators locators = new Locators();
+    String websiteURL = "https://test.my-fork.com/";
+
+    @BeforeMethod
+    public void setUp(){
         System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
+        driver = new ChromeDriver(options);
+    }
+    public void websiteLogIn(){
+        driver.get(websiteURL);
+        driver.findElement(locators.logIn_Btn).click();
+    }
 
-        driver.get("https://test.my-fork.com/");
+    public void emailPasswordSendKeys(){
+        driver.findElement(locators.email_Btn).sendKeys("email@gmail.om");
+        driver.findElement(locators.password_Btn).sendKeys("password");
+    }
 
+    public void emailPasswordSendKeysEnter(){
+        driver.findElement(locators.email_Btn).sendKeys("email@gmail.om");
+        driver.findElement(locators.password_Btn).sendKeys("password");
+        driver.findElement(locators.password_Btn).sendKeys(Keys.ENTER);
+    }
+
+    @Test
+    public void OpenWebsite(){
+
+        driver.get(websiteURL);
     }
 
    @Test
     public void OpenSignInPage(){
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
 
-        driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
+       websiteLogIn();
     }
-
 
 @Test
     public void ValidateEmailPasswordAndLoginOnSignInPage(){
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
 
-        driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
-        System.out.println(driver.findElement(By.xpath("//input[@id='email']")).isDisplayed());
-        System.out.println(driver.findElement(By.xpath("//input[@id='password']")).isDisplayed());
-        System.out.println(driver.findElement(By.xpath("//button[@type='submit']")).isDisplayed());
-
+        websiteLogIn();
+        System.out.println(driver.findElement(locators.email_Btn).isDisplayed());
+        System.out.println(driver.findElement(locators.password_Btn).isDisplayed());
+        System.out.println(driver.findElement(locators.submit_Btn).isDisplayed());
     }
 
 @Test
     public void EnterInvalidEmailAndPasswordOnSignInPage(){
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
 
-        driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email@gmail.om");
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
-        driver.findElement(By.xpath("//button[@type='submit']")).submit();
-
+        websiteLogIn();
+        emailPasswordSendKeys();
+        driver.findElement(locators.submit_Btn).submit();
     }
 
     @Test
     public void ValidateErrorIsAppearedOnSignInPage() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
 
-        driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email@gmail.om");
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(Keys.ENTER);
+        websiteLogIn();
+        emailPasswordSendKeysEnter();
         Thread.sleep(5000);
         System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).isDisplayed());
-
     }
 
     @Test
     public void ValidateErrorMessageTextOnSignInPage() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
 
-        driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
-        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("email@gmail.om");
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("password");
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys(Keys.ENTER);
+        websiteLogIn();
+        emailPasswordSendKeysEnter();
         Thread.sleep(5000);
         System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).getText());
-
     }
-
 
     @Test
     public void ValidateRememberMeCheckboxIsChecked() throws InterruptedException {
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        ChromeDriver driver = new ChromeDriver(options);
 
-        driver.get("https://test.my-fork.com/");
-        driver.findElement(By.xpath("//a[@data='record-data' and @class='menu-item log-in-button']")).click();
+        websiteLogIn();
         Thread.sleep(2000);
         System.out.println(driver.findElement(By.xpath("//input[@id='auth-page-remember-me']")).isSelected());
-    }}
+    }
 
-
-
+    @AfterMethod
+    public void CloseBrowserPage(){
+        driver.quit();
+    }
+}
