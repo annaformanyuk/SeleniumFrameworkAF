@@ -7,44 +7,33 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pageobjects.HomePage;
+import pageobjects.SignInPage;
 
-public class lesson2 {
+public class lesson2 extends BaseTest{
 
-    public ChromeDriver driver;
-    String logIn_Btn = "//a[@data='record-data' and @class='menu-item log-in-button']";
-    String email_Btn = "//input[@id='email']";
-    String password_Btn = "//input[@id='password']";
-    String submit_Btn = "//button[@type='submit']";
-    String websiteURL = "https://test.my-fork.com/";
-    String error_txt = "//p[text()='Error: email is incorrect']";
+    //locators
 
-    @BeforeMethod
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver", "/Users/aformanjuk/IdeaProjects/SeleniumProjectAnnaF/src/test/resources/chromedriver");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-    }
+
+
     public void websiteLogIn(){
-        driver.get(websiteURL);
-        driver.findElement(By.xpath(logIn_Btn)).click();
+
+        homePage.clickLogIn();
     }
 
     public void emailPasswordSendKeys(){
-        driver.findElement(By.xpath(email_Btn)).sendKeys("email@gmail.om");
-        driver.findElement(By.xpath(password_Btn)).sendKeys("password");
+        signInPage.emailPassword();
     }
 
     public void emailPasswordSendKeysEnter(){
-        driver.findElement(By.xpath(email_Btn)).sendKeys("email@gmail.om");
-        driver.findElement(By.xpath(password_Btn)).sendKeys("password");
-        driver.findElement(By.xpath(password_Btn)).sendKeys(Keys.ENTER);
+        emailPasswordSendKeys();
+        signInPage.enter();
     }
 
     @Test
     public void OpenWebsite(){
 
-        driver.get(websiteURL);
+        homePage.openWebsite();
     }
 
    @Test
@@ -57,9 +46,7 @@ public class lesson2 {
     public void ValidateEmailPasswordAndLoginOnSignInPage(){
 
         websiteLogIn();
-        System.out.println(driver.findElement(By.xpath(email_Btn)).isDisplayed());
-        System.out.println(driver.findElement(By.xpath(password_Btn)).isDisplayed());
-        System.out.println(driver.findElement(By.xpath(submit_Btn)).isDisplayed());
+        signInPage.emailPasswordDisplayed();
     }
 
 @Test
@@ -67,7 +54,7 @@ public class lesson2 {
 
         websiteLogIn();
         emailPasswordSendKeys();
-        driver.findElement(By.xpath(submit_Btn)).submit();
+        signInPage.submit();
     }
 
     @Test
@@ -76,7 +63,7 @@ public class lesson2 {
         websiteLogIn();
         emailPasswordSendKeysEnter();
         Thread.sleep(5000);
-        System.out.println(driver.findElement(By.xpath(error_txt)).isDisplayed());
+        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).isDisplayed());
     }
 
     @Test
@@ -85,7 +72,7 @@ public class lesson2 {
         websiteLogIn();
         emailPasswordSendKeysEnter();
         Thread.sleep(5000);
-        System.out.println(driver.findElement(By.xpath(error_txt)).getText());
+        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).getText());
     }
 
     @Test
@@ -94,10 +81,5 @@ public class lesson2 {
         websiteLogIn();
         Thread.sleep(2000);
         System.out.println(driver.findElement(By.xpath("//input[@id='auth-page-remember-me']")).isSelected());
-    }
-
-    @AfterMethod
-    public void CloseBrowserPage(){
-        driver.quit();
     }
 }
