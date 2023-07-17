@@ -3,6 +3,7 @@ package pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class SignInPage extends BaseMain{
 
@@ -16,6 +17,8 @@ public class SignInPage extends BaseMain{
     //parameters
     String emailValue = "email@gmail.om";
     String passwordValue = "password";
+
+
 
     public void emailPassword() {
         driver.findElement(By.xpath(email_Btn)).sendKeys(emailValue);
@@ -35,5 +38,9 @@ public class SignInPage extends BaseMain{
     public void submit(){
         driver.findElement(By.xpath(submit_Btn)).submit();
     }
+
+
+
+
 
 }

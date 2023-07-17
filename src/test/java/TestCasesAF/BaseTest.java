@@ -6,12 +6,14 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pageobjects.HomePage;
 import pageobjects.SignInPage;
+import pageobjects.SignUpPage;
 
 public class BaseTest {
 
     public ChromeDriver driver;
     HomePage homePage;
     SignInPage signInPage;
+    SignUpPage signUpPage;
 
     @BeforeMethod
     public void setUp(){
@@ -21,10 +23,11 @@ public class BaseTest {
         driver = new ChromeDriver(options);
         homePage = new HomePage(driver);
         signInPage = new SignInPage(driver);
+        signUpPage = new SignUpPage(driver);
     }
 
     @AfterMethod
     public void CloseBrowserPage(){
-        driver.quit();
+        driver.close();
     }
 }

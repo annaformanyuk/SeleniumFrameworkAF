@@ -82,4 +82,6 @@ public class lesson2 extends BaseTest{
         Thread.sleep(2000);
         System.out.println(driver.findElement(By.xpath("//input[@id='auth-page-remember-me']")).isSelected());
     }
+
+
 }
