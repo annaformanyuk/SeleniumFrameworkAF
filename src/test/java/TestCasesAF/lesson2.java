@@ -2,13 +2,19 @@ package TestCasesAF;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageobjects.HomePage;
 import pageobjects.SignInPage;
+
+import java.time.Duration;
 
 public class lesson2 extends BaseTest{
 
@@ -58,29 +64,29 @@ public class lesson2 extends BaseTest{
     }
 
     @Test
-    public void ValidateErrorIsAppearedOnSignInPage() throws InterruptedException {
+    public void ValidateErrorIsAppearedOnSignInPage(){
 
         websiteLogIn();
         emailPasswordSendKeysEnter();
-        Thread.sleep(5000);
-        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).isDisplayed());
+//        Thread.sleep(5000);
+        signInPage.WaitError();
+        signInPage.errorValidate();
     }
 
     @Test
-    public void ValidateErrorMessageTextOnSignInPage() throws InterruptedException {
+    public void ValidateErrorMessageTextOnSignInPage(){
 
         websiteLogIn();
         emailPasswordSendKeysEnter();
-        Thread.sleep(5000);
-        System.out.println(driver.findElement(By.xpath("//p[text()='Error: email is incorrect']")).getText());
+        signInPage.WaitError();
+        signInPage.errorValidateText();
     }
 
     @Test
-    public void ValidateRememberMeCheckboxIsChecked() throws InterruptedException {
+    public void ValidateRememberMeCheckboxIsChecked(){
 
         websiteLogIn();
-        Thread.sleep(2000);
-        System.out.println(driver.findElement(By.xpath("//input[@id='auth-page-remember-me']")).isSelected());
+        homePage.RememberMeCheckBox();
     }
 
 

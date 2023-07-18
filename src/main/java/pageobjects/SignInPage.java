@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class SignInPage extends BaseMain{
 
@@ -17,7 +21,7 @@ public class SignInPage extends BaseMain{
     //parameters
     String emailValue = "email@gmail.om";
     String passwordValue = "password";
-
+    String error = "//p[text()='Error: email is incorrect']";
 
 
     public void emailPassword() {
@@ -39,6 +43,18 @@ public class SignInPage extends BaseMain{
         driver.findElement(By.xpath(submit_Btn)).submit();
     }
 
+    public void errorValidate(){
+        System.out.println(driver.findElement(By.xpath(error)).isDisplayed());
+    }
+
+    public void errorValidateText(){
+        System.out.println(driver.findElement(By.xpath(error)).getText());
+    }
+
+    public void WaitError(){
+        WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(error)));
+    }
 
 
 
