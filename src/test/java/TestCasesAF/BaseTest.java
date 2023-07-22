@@ -30,8 +30,8 @@ public class BaseTest {
         driver.manage().window().maximize();
     }
 
-    @AfterMethod
-    public void CloseBrowserPage(){
-        driver.close();
-    }
+//    @AfterMethod
+//    public void CloseBrowserPage(){
+//        driver.close();
+//    }
 }
