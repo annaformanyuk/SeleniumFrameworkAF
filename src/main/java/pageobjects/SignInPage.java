@@ -25,6 +25,7 @@ public class SignInPage extends BaseMain{
 
 
     public void emailPassword() {
+
         driver.findElement(By.xpath(email_Btn)).sendKeys(emailValue);
         driver.findElement(By.xpath(password_Btn)).sendKeys(passwordValue);
     }
